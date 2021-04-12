@@ -1,25 +1,27 @@
 <template>
   <div
-    class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium"
+    class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium contact-birthday-container"
     if:true={showComponent}
   >
     <p class="slds-text-heading_medium">
-      <strong>&#129395; {firstname}'s Birthday is on {birthday}!</strong>
+      <strong>&#129395; {labels.birthdayAnnouncementLabel}</strong>
     </p>
-    <div class="buttons-wrapper slds-m-top_small slds-text-align_center">
+    <div class="buttons-wrapper slds-m-top_medium slds-text-align_center">
       <lightning-button
         variant="brand"
-        label="Send Email"
-        title={emailButtonTitle}
-        icon-name={emailButtonIconName}
+        label={buttonState.email.label}
+        title={buttonState.email.title}
+        icon-name={buttonState.email.iconName}
+        disabled={buttonState.email.disabled}
         class="slds-m-right_x-small"
         onclick={handleEmailButtonClick}
       ></lightning-button>
       <lightning-button
         variant="brand"
-        label="Send Card"
-        title={cardButtonTitle}
-        icon-name={cardButtonIconName}
+        label={buttonState.card.label}
+        title={buttonState.card.title}
+        icon-name={buttonState.card.iconName}
+        disabled={buttonState.card.disabled}
         onclick={handleCardButtonClick}
       ></lightning-button>
     </div>

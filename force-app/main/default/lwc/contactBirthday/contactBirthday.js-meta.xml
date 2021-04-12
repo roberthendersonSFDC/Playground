@@ -9,6 +9,13 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
+            <property name="birthdayAnnouncementLabel" type="String" required="true" default="{FirstName}'s Birthday is on {Birthdate}!" description="The main text string that shows in the component." label="Main Text String" />
+            <property name="sendEmailButtonLabel" type="String" required="true" default="Send Email" description="The button label text for the Send Email button." label="Send Email Button Label" />
+            <property name="sendCardButtonLabel" type="String" required="true" default="Send Card" description="The button label text for the Send Card button." label="Send Card Button Label" />
+            <property name="sendEmailToastHeaderLabel" type="String" required="true" default="Success!" description="The label that shows up in the Success Toast Header for Send Email." label="Send Email Toast Header" />
+            <property name="sendEmailToastMessageLabel" type="String" required="true" default="A Happy Birthday Email has been sent to {FirstName}" description="The message that shows up in the Success Toast Header for Send Email." label="Send Email Toast Message" />
+            <property name="sendCardToastHeaderLabel" type="String" required="true" default="Success!" description="The label that shows up in the Success Toast Header for Send Card." label="Send Card Toast Header" />
+            <property name="sendCardToastMessageLabel" type="String" required="true" default="A Happy Birthday Card has been mailed to {FirstName}" description="The message that shows up in the Success Toast Header for Send Card." label="Send Card Toast Message" />
             <property name="withinDays" type="Integer" required="true" default="7" description="The number of days the Contact's birthday should be within to display this component." label="Display within how many days?" />
             <objects>
                 <object>Contact</object>

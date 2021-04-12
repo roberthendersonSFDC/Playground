@@ -1,0 +1,27 @@
+<template>
+  <div
+    class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium"
+    if:true={showComponent}
+  >
+    <p class="slds-text-heading_medium">
+      <strong>&#129395; {firstname}'s Birthday is on {birthday}!</strong>
+    </p>
+    <div class="buttons-wrapper slds-m-top_small slds-text-align_center">
+      <lightning-button
+        variant="brand"
+        label="Send Email"
+        title={emailButtonTitle}
+        icon-name={emailButtonIconName}
+        class="slds-m-right_x-small"
+        onclick={handleEmailButtonClick}
+      ></lightning-button>
+      <lightning-button
+        variant="brand"
+        label="Send Card"
+        title={cardButtonTitle}
+        icon-name={cardButtonIconName}
+        onclick={handleCardButtonClick}
+      ></lightning-button>
+    </div>
+  </div>
+</template>

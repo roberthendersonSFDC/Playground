@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Contact Birthday</masterLabel>
+    <description>Display a reminder when a Contact's Birthdate is within the next 7 days.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="withinDays" type="Integer" required="true" default="7" description="The number of days the Contact's birthday should be within to display this component." label="Display within how many days?" />
+            <objects>
+                <object>Contact</object>
+            </objects>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -193,7 +193,7 @@ export default class ContactBirthday extends LightningElement {
     this.buttonState = newState;
     this.showSuccessToast(
       this.labels.sendEmailToastHeaderLabel,
-      `A Happy Birthday Email has been sent to ${this.firstname}`
+      this.labels.sendEmailToastMessageLabel
     );
   }
 
@@ -204,7 +204,7 @@ export default class ContactBirthday extends LightningElement {
     this.buttonState = newState;
     this.showSuccessToast(
       this.labels.sendCardToastHeaderLabel,
-      `A Happy Birthday Card has been mailed to ${this.firstname}`
+      this.labels.sendCardToastMessageLabel
     );
   }
 

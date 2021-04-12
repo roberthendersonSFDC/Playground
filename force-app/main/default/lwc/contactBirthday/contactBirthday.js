@@ -187,7 +187,7 @@ export default class ContactBirthday extends LightningElement {
   }
 
   handleEmailButtonClick() {
-    let newState = Object.assign({}, this.getInitialButtonState());
+    let newState = Object.assign({}, this.buttonState);
     newState.email.disabled = true;
     newState.email.iconName = "utility:check";
     this.buttonState = newState;
@@ -198,7 +198,7 @@ export default class ContactBirthday extends LightningElement {
   }
 
   handleCardButtonClick() {
-    let newState = Object.assign({}, this.getInitialButtonState());
+    let newState = Object.assign({}, this.buttonState);
     newState.card.disabled = true;
     newState.card.iconName = "utility:check";
     this.buttonState = newState;

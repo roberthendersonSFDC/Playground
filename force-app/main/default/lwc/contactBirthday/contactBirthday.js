@@ -106,15 +106,6 @@ export default class ContactBirthday extends LightningElement {
         }
     }
 
-    handleWiredContactSuccess(data) {
-        const fields = data.fields;
-        this.firstname = fields.FirstName.value;
-        this.birthday = this.getBirthdayString(fields.Birthdate.value);
-        this.showComponent = this.isDateUpcoming(fields.Birthdate.value);
-        this.addDataToLabels();
-        this.buttonState = this.getInitialButtonState();
-    }
-
     handleWiredContactError(error) {
         let message = "Unknown error";
         if (Array.isArray(error.body)) {
@@ -123,6 +114,15 @@ export default class ContactBirthday extends LightningElement {
             message = error.body.message;
         }
         this.showToast("Error loading Contact", message, "error");
+    }
+
+    handleWiredContactSuccess(data) {
+        const fields = data.fields;
+        this.firstname = fields.FirstName.value;
+        this.birthday = this.getBirthdayString(fields.Birthdate.value);
+        this.showComponent = this.isDateUpcoming(fields.Birthdate.value);
+        this.bindDataToLabels();
+        this.buttonState = this.getInitialButtonState();
     }
 
     getBirthdayString(birthdate, includeThisYear) {
@@ -146,7 +146,7 @@ export default class ContactBirthday extends LightningElement {
         return differenceInDays > 0 && differenceInDays <= this.withinDays;
     }
 
-    addDataToLabels() {
+    bindDataToLabels() {
         for (const property in this.labels) {
             let label = this.labels[property].slice();
             const swaps = [

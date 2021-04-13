@@ -138,10 +138,10 @@ export default class ContactBirthday extends LightningElement {
   }
 
   isDateUpcoming(date) {
-    const dateObj = new Date(date);
-    const today = NOW.getUTCDate();
-    const difference = dateObj.getUTCDate() - today;
-    return difference > 0 && difference <= this.withinDays;
+    const dateObj = new Date(this.getBirthdayString(date, true));
+    const differenceInTime = dateObj.getTime() - NOW.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    return differenceInDays > 0 && differenceInDays <= this.withinDays;
   }
 
   getBirthdayString(birthdate, includeThisYear) {
@@ -152,7 +152,7 @@ export default class ContactBirthday extends LightningElement {
     let birthdayString = `${MONTHS[birthdateMonth]} ${birthdateDay}`;
     if (includeThisYear) {
       const thisYear = NOW.getUTCFullYear();
-      birthdayString += `${birthdayString}, ${thisYear}`;
+      birthdayString = `${birthdayString}, ${thisYear}`;
     }
 
     return birthdayString;

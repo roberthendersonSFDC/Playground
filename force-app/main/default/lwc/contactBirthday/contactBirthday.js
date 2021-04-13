@@ -20,8 +20,22 @@ const MONTHS = [
 const NOW = new Date();
 
 export default class ContactBirthday extends LightningElement {
-  @api recordId;
-  @api withinDays;
+  labels = {
+    birthdayAnnouncementLabel: "",
+    sendEmailButtonLabel: "",
+    sendCardButtonLabel: "",
+    sendEmailToastHeaderLabel: "",
+    sendEmailToastMessageLabel: "",
+    sendCardToastHeaderLabel: "",
+    sendCardToastMessageLabel: ""
+  };
+
+  @api
+  recordId;
+
+  @api
+  withinDays;
+
   @api
   set birthdayAnnouncementLabel(value) {
     this.labels.birthdayAnnouncementLabel = value;
@@ -78,17 +92,6 @@ export default class ContactBirthday extends LightningElement {
     return this.labels.sendCardToastMessageLabel;
   }
 
-  labels = {
-    birthdayAnnouncementLabel: "",
-    sendEmailButtonLabel: "",
-    sendCardButtonLabel: "",
-    sendEmailToastHeaderLabel: "",
-    sendEmailToastMessageLabel: "",
-    sendCardToastHeaderLabel: "",
-    sendCardToastMessageLabel: ""
-  };
-
-  contact;
   firstname;
   birthday;
   showComponent;
@@ -111,14 +114,10 @@ export default class ContactBirthday extends LightningElement {
         })
       );
     } else if (data) {
-      this.contact = data;
-      this.firstname = this.contact.fields.FirstName.value;
-      this.birthday = this.getBirthdayString(
-        this.contact.fields.Birthdate.value
-      );
-      this.showComponent = this.isDateUpcoming(
-        this.contact.fields.Birthdate.value
-      );
+      const fields = data.fields;
+      this.firstname = fields.FirstName.value;
+      this.birthday = this.getBirthdayString(fields.Birthdate.value);
+      this.showComponent = this.isDateUpcoming(fields.Birthdate.value);
       this.addDataToLabels();
       this.buttonState = this.getInitialButtonState();
     }
@@ -127,12 +126,15 @@ export default class ContactBirthday extends LightningElement {
   addDataToLabels() {
     for (const property in this.labels) {
       let label = this.labels[property].slice();
-      if (label.indexOf("{FirstName}") > -1) {
-        label = label.replaceAll("{FirstName}", this.firstname);
-      }
-      if (label.indexOf("{Birthdate}") > -1) {
-        label = label.replaceAll("{Birthdate}", this.birthday);
-      }
+      const swaps = [
+        { token: "{FirstName}", targetProp: "firstname" },
+        { token: "{Birthdate}", targetProp: "birthday" }
+      ];
+      swaps.forEach((swap) => {
+        if (label.indexOf(swap.token) > -1) {
+          label = label.replaceAll(swap.token, this[swap.targetProp]);
+        }
+      });
       this.labels[property] = label;
     }
   }
@@ -175,37 +177,25 @@ export default class ContactBirthday extends LightningElement {
     };
   }
 
-  replaceDataPlaceholders(value) {
-    let formattedValue = value.slice();
-    if (formattedValue.indexOf("{FirstName}") > -1) {
-      formattedValue.replaceAll("{FirstName}", this.firstname);
-    }
-    if (formattedValue.indexOf("{Birthdate}") > -1) {
-      formattedValue.replaceAll("{Birthdate}", this.birthday);
-    }
-    return formattedValue;
-  }
-
   handleEmailButtonClick() {
-    let newState = Object.assign({}, this.buttonState);
-    newState.email.disabled = true;
-    newState.email.iconName = "utility:check";
-    this.buttonState = newState;
-    this.showSuccessToast(
-      this.labels.sendEmailToastHeaderLabel,
-      this.labels.sendEmailToastMessageLabel
-    );
+    this.updateButtonState("email", true);
   }
 
   handleCardButtonClick() {
+    this.updateButtonState("card", true);
+  }
+
+  updateButtonState(type, showToast) {
     let newState = Object.assign({}, this.buttonState);
-    newState.card.disabled = true;
-    newState.card.iconName = "utility:check";
+    newState[type].disabled = true;
+    newState[type].iconName = "utility:check";
     this.buttonState = newState;
-    this.showSuccessToast(
-      this.labels.sendCardToastHeaderLabel,
-      this.labels.sendCardToastMessageLabel
-    );
+    if (showToast) {
+      this.showSuccessToast(
+        this.labels[`send${this._capitalizeFirstLetter(type)}ToastHeaderLabel`],
+        this.labels[`send${this._capitalizeFirstLetter(type)}ToastMessageLabel`]
+      );
+    }
   }
 
   showSuccessToast(header, message) {
@@ -216,5 +206,9 @@ export default class ContactBirthday extends LightningElement {
         variant: "success"
       })
     );
+  }
+
+  _capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 }

@@ -106,13 +106,7 @@ export default class ContactBirthday extends LightningElement {
       } else if (typeof error.body.message === "string") {
         message = error.body.message;
       }
-      this.dispatchEvent(
-        new ShowToastEvent({
-          title: "Error loading contact",
-          message,
-          variant: "error"
-        })
-      );
+      this.showToast("error", "Error loading Contact", message);
     } else if (data) {
       const fields = data.fields;
       this.firstname = fields.FirstName.value;
@@ -191,19 +185,20 @@ export default class ContactBirthday extends LightningElement {
     newState[type].iconName = "utility:check";
     this.buttonState = newState;
     if (showToast) {
-      this.showSuccessToast(
+      this.showToast(
+        "success",
         this.labels[`send${this._capitalizeFirstLetter(type)}ToastHeaderLabel`],
         this.labels[`send${this._capitalizeFirstLetter(type)}ToastMessageLabel`]
       );
     }
   }
 
-  showSuccessToast(header, message) {
+  showToast(variant, title, message) {
     this.dispatchEvent(
       new ShowToastEvent({
-        title: header,
+        title,
         message,
-        variant: "success"
+        variant
       })
     );
   }

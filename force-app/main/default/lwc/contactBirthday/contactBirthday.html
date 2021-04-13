@@ -1,30 +1,30 @@
 <template>
-  <div
-    class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium contact-birthday-container"
-    if:true={showComponent}
-  >
-    <p class="slds-text-heading_medium">
-      <strong>&#129395; {labels.birthdayAnnouncementLabel}</strong>
-    </p>
-    <div class="buttons-wrapper slds-m-top_medium slds-text-align_center">
-      <lightning-button
-        variant="brand"
-        label={buttonState.email.label}
-        title={buttonState.email.title}
-        icon-name={buttonState.email.iconName}
-        disabled={buttonState.email.disabled}
-        class="send-button slds-m-right_x-small"
-        onclick={handleEmailButtonClick}
-      ></lightning-button>
-      <lightning-button
-        variant="brand"
-        label={buttonState.card.label}
-        title={buttonState.card.title}
-        icon-name={buttonState.card.iconName}
-        disabled={buttonState.card.disabled}
-        class="send-button"
-        onclick={handleCardButtonClick}
-      ></lightning-button>
+    <div
+        class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium contact-birthday-container"
+        if:true={showComponent}
+    >
+        <p class="slds-text-heading_medium">
+            <strong>&#129395; {labels.birthdayAnnouncementLabel}</strong>
+        </p>
+        <div class="buttons-wrapper slds-m-top_medium slds-text-align_center">
+            <lightning-button
+                variant="brand"
+                label={buttonState.email.label}
+                title={buttonState.email.title}
+                icon-name={buttonState.email.iconName}
+                disabled={buttonState.email.disabled}
+                class="send-button slds-m-right_x-small"
+                onclick={handleEmailButtonClick}
+            ></lightning-button>
+            <lightning-button
+                variant="brand"
+                label={buttonState.card.label}
+                title={buttonState.card.title}
+                icon-name={buttonState.card.iconName}
+                disabled={buttonState.card.disabled}
+                class="send-button"
+                onclick={handleCardButtonClick}
+            ></lightning-button>
+        </div>
     </div>
-  </div>
 </template>

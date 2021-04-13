@@ -6,5 +6,11 @@
 .localdevserver
 .sfdx
 .vscode
-
 coverage/
+package-lock.json
+*.xml
+scratch*_info.json
+jsconfig.json
+.cci/
+experienceBundle/**
+**/vendor/**

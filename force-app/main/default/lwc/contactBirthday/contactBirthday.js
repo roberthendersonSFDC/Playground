@@ -92,6 +92,12 @@ export default class ContactBirthday extends LightningElement {
         return this.labels.sendCardToastMessageLabel;
     }
 
+    @api
+    backgroundColorHex;
+
+    @api
+    borderColorHex;
+
     firstname;
     birthday;
     showComponent;
@@ -122,6 +128,7 @@ export default class ContactBirthday extends LightningElement {
         this.birthday = this.getBirthdayString(fields.Birthdate.value);
         this.showComponent = this.isDateUpcoming(fields.Birthdate.value);
         this.bindDataToLabels();
+        this.wrapperStyles = this.createCssRules();
         this.buttonState = this.getInitialButtonState();
     }
 
@@ -160,6 +167,32 @@ export default class ContactBirthday extends LightningElement {
             });
             this.labels[property] = label;
         }
+    }
+
+    createCssRules() {
+        let backgroundColor = this.checkColorHexValidity(
+            "backgroundColorHex",
+            "#cdefc4"
+        );
+        let borderColor = this.checkColorHexValidity(
+            "borderColorHex",
+            "#2e844a"
+        );
+
+        return `background-color: ${backgroundColor}; border-color: ${borderColor};`;
+    }
+
+    checkColorHexValidity(targetProp, defaultHex) {
+        if (this[targetProp].length > 7) {
+            return defaultHex;
+        }
+        if (this[targetProp].charAt(0) !== "#") {
+            return defaultHex;
+        }
+        if (this[targetProp].slice(1).match(/^[a-z0-9]+$/i) === null) {
+            return defaultHex;
+        }
+        return this[targetProp];
     }
 
     getInitialButtonState() {

@@ -1,12 +1,18 @@
 <template>
     <div
-        class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium contact-birthday-container"
+        class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium"
+        style={wrapperStyles}
         if:true={showComponent}
     >
         <p class="slds-text-heading_medium slds-text-align_center">
-            <strong>&#129395; {labels.birthdayAnnouncementLabel}</strong>
+            <strong>{labels.birthdayAnnouncementLabel}</strong>
         </p>
-        <div class="buttons-wrapper slds-m-top_medium slds-text-align_center">
+        <p
+            class="slds-m-top_xx-small slds-text-align_center contact-birthday-emoticon"
+        >
+            &#129395;
+        </p>
+        <div class="buttons-wrapper slds-text-align_center">
             <lightning-button
                 variant="brand"
                 label={buttonState.email.label}

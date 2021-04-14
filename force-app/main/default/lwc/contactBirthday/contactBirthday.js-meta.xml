@@ -3,7 +3,7 @@
     <apiVersion>51.0</apiVersion>
     <isExposed>true</isExposed>
     <masterLabel>Contact Birthday</masterLabel>
-    <description>Display a reminder when a Contact's Birthdate is within the next 7 days.</description>
+    <description>Display a reminder when a Contact's Birthdate is within the next X days.</description>
     <targets>
         <target>lightning__RecordPage</target>
     </targets>

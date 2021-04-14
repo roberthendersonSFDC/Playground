@@ -18,6 +18,7 @@ const MONTHS = [
     "December"
 ];
 const NOW = new Date();
+const alphaNumericMatch = /^[a-z0-9]+$/i;
 
 export default class ContactBirthday extends LightningElement {
     labels = {
@@ -35,6 +36,9 @@ export default class ContactBirthday extends LightningElement {
 
     @api
     withinDays;
+
+    @api
+    emoticonUnicode;
 
     @api
     set birthdayAnnouncementLabel(value) {
@@ -128,6 +132,7 @@ export default class ContactBirthday extends LightningElement {
         this.birthday = this.getBirthdayString(fields.Birthdate.value);
         this.showComponent = this.isDateUpcoming(fields.Birthdate.value);
         this.bindDataToLabels();
+        this.emoticon = this.createEmoticonCode();
         this.wrapperStyles = this.createCssRules();
         this.buttonState = this.getInitialButtonState();
     }
@@ -169,6 +174,18 @@ export default class ContactBirthday extends LightningElement {
         }
     }
 
+    createEmoticonCode() {
+        const prefix = "&#x";
+        const defaultCode = "1F973";
+        if (this.emoticonUnicode.length !== 5) {
+            return prefix + defaultCode;
+        }
+        if (this.emoticonUnicode.match(alphaNumericMatch) === null) {
+            return prefix + defaultCode;
+        }
+        return prefix + this.emoticonUnicode;
+    }
+
     createCssRules() {
         let backgroundColor = this.checkColorHexValidity(
             "backgroundColorHex",
@@ -189,7 +206,7 @@ export default class ContactBirthday extends LightningElement {
         if (this[targetProp].charAt(0) !== "#") {
             return defaultHex;
         }
-        if (this[targetProp].slice(1).match(/^[a-z0-9]+$/i) === null) {
+        if (this[targetProp].slice(1).match(alphaNumericMatch) === null) {
             return defaultHex;
         }
         return this[targetProp];

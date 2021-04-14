@@ -1,3 +1,7 @@
+.dummy-container-to-remove-margin {
+    margin-bottom: -0.75rem;
+}
+
 .contact-birthday-emoticon {
     font-size: 3.125rem;
 }

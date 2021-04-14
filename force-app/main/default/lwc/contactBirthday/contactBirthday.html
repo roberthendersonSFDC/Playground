@@ -1,5 +1,9 @@
 <template>
     <div
+        class="dummy-container-to-remove-margin"
+        if:false={showComponent}
+    ></div>
+    <div
         class="slds-card slds-theme_shade slds-theme_alert-texture slds-p-around_medium"
         style={wrapperStyles}
         if:true={showComponent}
